@@ -14,6 +14,8 @@ class ChargesSeeder extends Seeder
     public function run()
     {
     	dump('Seeding Charges...');
-        Excel::import(new ChargesImport, '/forimport/billingdata.xlsx');
+        Excel::import(new ChargesImport, '/forimport/billingdata1.xlsx');
+        Excel::import(new ChargesImport, '/forimport/billingdata2.xlsx');
+        dump('Done Seeding Charges');
     }
 }

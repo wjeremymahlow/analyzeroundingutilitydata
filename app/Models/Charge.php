@@ -8,22 +8,22 @@ class Charge extends Model
     protected $guarded = [];
     public function attending()
     {
-    	return $this->belongsTo('App\Attending');
+    	return $this->belongsTo(Attending::class);
     }
 
     public function date()
     {
-    	return $this->belongsTo('App\Date');
+    	return $this->belongsTo(Date::class);
     }
 
     public function patient()
     {
-    	return $this->belongsTo('App\Patient');
+    	return $this->belongsTo(Patient::class);
     }
 
     public function icd10codes()
     {
-    	return $this->belongsToMany('App\ICD10Code','charge_icd10code','charge_id','icd10code_id');
+    	return $this->belongsToMany(ICD10Code::class,'charge_icd10code','charge_id','icd10code_id');
     }
 
     public function formattedcptcode()

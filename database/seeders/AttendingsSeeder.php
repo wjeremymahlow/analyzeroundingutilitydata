@@ -64,6 +64,8 @@ class AttendingsSeeder extends Seeder
                 if ($abbreviation == 'MDM' || $abbreviation == 'JRS' || $abbreviation == 'HS') $attending->role = 'nursepracticioner';
                 else $attending->role = 'physician';
                 $attending->save();
+            } else {
+                dump('I do not know the abbreviation ' . $abbreviation);
             }
         });
         

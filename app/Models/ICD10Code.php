@@ -10,6 +10,6 @@ class ICD10Code extends Model
 
     public function charges()
     {
-    	return $this->belongsToMany('App\Charge','charge_icd10code','charge_id','icd10code_id');
+    	return $this->belongsToMany(Charge::class,'charge_icd10code','charge_id','icd10code_id');
     }
 }

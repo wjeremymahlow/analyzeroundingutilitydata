@@ -8,6 +8,6 @@ class Date extends Model
     protected $guarded = [];
     public function charges()
     {
-    	return $this->hasMany('App\Charge');
+    	return $this->hasMany(Charge::class);
     }
 }
