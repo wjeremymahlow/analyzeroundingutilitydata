@@ -41,6 +41,22 @@ class AttendingsSeeder extends Seeder
             'H3' => 'Dr. Hirst',
             'K2' => 'Dr. Litton',
             'CHF' => 'CHF',
+            'KMM' => 'Martini NP',
+            'B2' => 'Dr. Bailey',
+            'LCP' => 'L. Parker',
+            'MKM' => 'McCarley NP',
+            'W' => 'Dr. Wehber',
+            'CDV' => 'Vance NP',
+            'MJG' => 'Gentry NP',
+            'GB' => 'Dr. Gayathri',
+            'KMH' => 'Harvey NP',
+            'Jennings' => 'Dr. Jennings',
+            'liu' => 'Dr. Liu',
+            'SHEPPLE' => 'Dr. Shepple',
+            'JENNINGS' => 'Dr. Jennings',
+            'C' => 'Dr. Scott',
+            'Perkel' => 'Dr. Perkel',
+            'LGM2' => 'Unknown',
     	]);
     }
 
