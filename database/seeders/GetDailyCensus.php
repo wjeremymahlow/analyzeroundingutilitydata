@@ -56,7 +56,7 @@ class GetDailyCensus extends Seeder
         $this->cvicupatientswithcriticalcaretimebilleddata = collect();
         $this->dailynumberofcharges = collect();
         $this->initialdate = Date::where('year',2021)->where('month',1)->where('day',1)->first();
-        $this->finaldate = Date::where('year',2021)->where('month',2)->where('day',28)->first();
+        $this->finaldate = Date::where('year',2021)->where('month',3)->where('day',20)->first();
         $this->allcptcodes = collect([
             '223',
             '231',
@@ -150,6 +150,7 @@ class GetDailyCensus extends Seeder
 
     public function run()
     {
+        dump('From: ' . $this->initialdate->formatted_date_short . ' to ' . $this->finaldate->formatted_date_short);
         Date::whereBetween('id',[$this->initialdate->id,$this->finaldate->id])->with('charges.patient')->chunk(100, function($dates) {
             $dates->each(function($date) {
 
@@ -161,8 +162,12 @@ class GetDailyCensus extends Seeder
                 $newadmitandconsultchargesfordate = $unfilteredchargesfordate->filter(function($charge) {
                     return $this->newadmitconsultcptcodes->contains($charge->formattedcptcode());
                 });
+                // echo $newadmitandconsultchargesfordate->count() . PHP_EOL;
 
                 $allpatientsfordate = $allchargesfordate->pluck('patient')->unique('id');
+                // dump($date->formatted_date_short . ': ' . $allpatientsfordate->count());
+                // echo $allpatientsfordate->count() . PHP_EOL;
+                // echo $date->formatted_date_short . PHP_EOL;
 
                 $cvicupatientsfordate = $allchargesfordate->filter(function ($charge) {
                     return $charge->isincvicu();
