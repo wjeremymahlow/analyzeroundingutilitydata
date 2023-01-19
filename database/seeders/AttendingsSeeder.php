@@ -57,6 +57,17 @@ class AttendingsSeeder extends Seeder
             'C' => 'Dr. Scott',
             'Perkel' => 'Dr. Perkel',
             'LGM2' => 'Unknown',
+            'KEA' => 'Kristin Anklowitz NP',
+            'LAD' => 'Lisa Dugger NP',
+            'S2' => 'Dr. Shaikh',
+            'I' => 'Dr. Isang',
+            'M4' => 'Dr. McBride',
+            'JLJ' => 'Julia Jones NP',
+            'LD' => 'Lisa Dugger 2 NP',
+            'LEM' => 'Lauren Monroe NP',
+            'shepple' => 'Dr. Shepple 2',
+            'SMP' => 'Matt Parker NP',
+
     	]);
     }
 
@@ -66,18 +77,19 @@ class AttendingsSeeder extends Seeder
 
         Charge::chunk(500, function($charges) {
         	$charges->each(function($charge) {
-	        	$this->abbreviations->push($charge->billingmdabbreviation);
+	        	$this->abbreviations->push(strtoupper($charge->billingmdabbreviation));
         	});
             echo '.';
         });
 
         $uniqueabbreviations = $this->abbreviations->unique();
         $uniqueabbreviations->each(function($abbreviation) {
-            if (isset($this->namesfromabbreviation[$abbreviation])) {
+            if (isset($this->namesfromabbreviation[strtoupper($abbreviation)])) {
                 $attending = new Attending;
                 $attending->abbreviation = $abbreviation;
                 $attending->name = $this->namesfromabbreviation[$abbreviation];
-                if ($abbreviation == 'MDM' || $abbreviation == 'JRS' || $abbreviation == 'HS') $attending->role = 'nursepracticioner';
+                $npabbreviations = collect(['MDM','JRS','HS','FSS','KEA','LAD','JLJ','LEM','SMP']);
+                if ($npabbreviations->contains($abbreviation)) $attending->role = 'nursepracticioner';
                 else $attending->role = 'physician';
                 $attending->save();
             } else {

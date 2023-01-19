@@ -16,8 +16,8 @@ class ICD10CodesImport implements ToModel, WithChunkReading
     public function model(array $row)
     {
         return new ICD10Code([
-            'code'     => $row[1],
-            'description'    => $row[2],
+            'code'     => substr($row[0],0,3) . '.' . substr($row[0],3,),
+            'description'    => $row[1],
         ]);
     }
 
