@@ -19,7 +19,7 @@ class GetDailyCensusForAttending extends Seeder
 
     public function __construct()
     {
-    	$this->attending = Attending::where('abbreviation','M3')->first();
+    	$this->attending = Attending::where('abbreviation','CDV')->first();
     	$this->charges = $this->attending->charges()->with('patient')->get();
     	$this->dailycensuses = collect();
     	$this->dailynumberofcharges = collect();

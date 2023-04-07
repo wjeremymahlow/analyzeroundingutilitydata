@@ -13,8 +13,8 @@ class GetUniqueCharges extends Seeder
 	public function __construct()
 	{
 		$this->cptcodes = collect();
-        $this->initialdate = Date::where('year',2020)->where('month',9)->where('day',1)->first();
-        $this->finaldate = Date::where('year',2020)->where('month',12)->where('day',31)->first();
+        $this->initialdate = Date::where('year',2022)->where('month',1)->where('day',1)->first();
+        $this->finaldate = Date::where('year',2022)->where('month',12)->where('day',31)->first();
 	}
 
     public function run()
@@ -22,7 +22,8 @@ class GetUniqueCharges extends Seeder
 
     	Charge::whereBetween('date_id',[$this->initialdate->id,$this->finaldate->id])->chunk(100, function($charges) {
     		$charges->each(function($charge) {
-    			$this->cptcodes->push($charge->formattedcptcode());
+    			// $this->cptcodes->push($charge->formattedcptcode());
+                $this->cptcodes->push($charge->cptcode);
     		});    		
     	});
 
