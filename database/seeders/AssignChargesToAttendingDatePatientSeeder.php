@@ -27,23 +27,28 @@ class AssignChargesToAttendingDatePatientSeeder extends Seeder
 
         Charge::chunkById(500, function($charges) {
         	$charges->each(function($charge) {
-                $charge->error = false;
-                $charge->errormessage = null;
-        		if (isset($this->attendingsgroupedbyabbreviation[$charge->billingmdabbreviation]) && isset($this->patientsgroupedbypowerchartmrn[$charge->powerchartmrn])) {
-        			$attending = $this->attendingsgroupedbyabbreviation[$charge->billingmdabbreviation]->first();
-        			$charge->attending_id = $attending->id;
+                if (strtotime($charge->dateofservice)) {
+                    $charge->error = false;
+                    $charge->errormessage = null;
+                    if (isset($this->attendingsgroupedbyabbreviation[$charge->billingmdabbreviation]) && isset($this->patientsgroupedbypowerchartmrn[$charge->powerchartmrn])) {
+                        $attending = $this->attendingsgroupedbyabbreviation[$charge->billingmdabbreviation]->first();
+                        $charge->attending_id = $attending->id;
 
-        			$dt = new Carbon($charge->dateofservice);
-                    $date = Date::where('year',$dt->year)->where('month',$dt->month)->where('day',$dt->day)->firstOrFail();
-        			$charge->date_id = $date->id;
+                        $dt = new Carbon($charge->dateofservice);
+                        $date = Date::where('year',$dt->year)->where('month',$dt->month)->where('day',$dt->day)->firstOrFail();
+                        $charge->date_id = $date->id;
 
-                    $patient = $this->patientsgroupedbypowerchartmrn[$charge->powerchartmrn]->first();
-                    $charge->patient_id = $patient->id;
-        		} else {
-                    $charge->error = true;
-                    $charge->errormessage = 'Attending Not Found';
+                        $patient = $this->patientsgroupedbypowerchartmrn[$charge->powerchartmrn]->first();
+                        $charge->patient_id = $patient->id;
+                    } else {
+                        $charge->error = true;
+                        $charge->errormessage = 'Attending Not Found';
+                    }
+                    $charge->save();
+                } else {
+                    dump('Invalid date on this charge:');
+                    dump($charge);
                 }
-                $charge->save();
         	});
             echo '.';
         });
