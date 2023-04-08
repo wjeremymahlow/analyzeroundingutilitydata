@@ -48,6 +48,7 @@ class AssignChargesToAttendingDatePatientSeeder extends Seeder
                 } else {
                     dump('Invalid date on this charge:');
                     dump($charge);
+                    dd('Please format the excel column as string not date');
                 }
         	});
             echo '.';
