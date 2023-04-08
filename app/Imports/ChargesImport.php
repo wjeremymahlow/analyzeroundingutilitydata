@@ -19,7 +19,7 @@ class ChargesImport implements ToModel, WithChunkReading
             'dateofservice'     => $row[0],
             'patientname'    => $row[1], 
             'room'    => $row[2], 
-            'roundingmdabbreviations' => $row[3], 
+            'roundingmdabbreviations' => strtoupper($row[3]), 
             'cpsmrn'    => $row[4], 
             'powerchartmrn'    => $row[5], 
             'icd10code1'    => $row[6], 
@@ -28,7 +28,7 @@ class ChargesImport implements ToModel, WithChunkReading
             'icd10code4'    => $row[9], 
             'referringmd'    => $row[10], 
             'cptcode'    => $row[11], 
-            'billingmdabbreviation'    => $row[12], 
+            'billingmdabbreviation'    => strtoupper($row[12]), 
             'chargestatus'    => $row[13], 
         ]);
     }

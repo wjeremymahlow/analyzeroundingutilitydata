@@ -50,12 +50,12 @@ class AttendingsSeeder extends Seeder
             'MJG' => 'Gentry NP',
             'GB' => 'Dr. Gayathri',
             'KMH' => 'Harvey NP',
-            'Jennings' => 'Dr. Jennings',
-            'liu' => 'Dr. Liu',
+            'JENNINGS' => 'Dr. Jennings',
+            'LIU' => 'Dr. Liu',
             'SHEPPLE' => 'Dr. Shepple',
             'JENNINGS' => 'Dr. Jennings',
             'C' => 'Dr. Scott',
-            'Perkel' => 'Dr. Perkel',
+            'PERKEL' => 'Dr. Perkel',
             'LGM2' => 'Unknown',
             'KEA' => 'Kristin Anklowitz NP',
             'LAD' => 'Lisa Dugger NP',
@@ -65,9 +65,10 @@ class AttendingsSeeder extends Seeder
             'JLJ' => 'Julia Jones NP',
             'LD' => 'Lisa Dugger 2 NP',
             'LEM' => 'Lauren Monroe NP',
-            'shepple' => 'Dr. Shepple 2',
             'SMP' => 'Matt Parker NP',
-
+            'FSW' => 'Felicia Wassenger NP',
+            'FSS' => 'Felicia Schaap NP',
+            
     	]);
     }
 
@@ -88,7 +89,7 @@ class AttendingsSeeder extends Seeder
                 $attending = new Attending;
                 $attending->abbreviation = $abbreviation;
                 $attending->name = $this->namesfromabbreviation[$abbreviation];
-                $npabbreviations = collect(['MDM','JRS','HS','FSS','KEA','LAD','JLJ','LEM','SMP']);
+                $npabbreviations = collect(['MDM','JRS','HS','FSS','KEA','LAD','JLJ','LEM','SMP','FSW','FSS']);
                 if ($npabbreviations->contains($abbreviation)) $attending->role = 'nursepracticioner';
                 else $attending->role = 'physician';
                 $attending->save();
