@@ -16,7 +16,7 @@ class ChargesImport implements ToModel, WithChunkReading
     public function model(array $row)
     {
         return new Charge([
-            'dateofservice'     => $row[0],
+            'dateofservice' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[0])->format('m/d/Y'),
             'patientname'    => $row[1], 
             'room'    => $row[2], 
             'roundingmdabbreviations' => strtoupper($row[3]), 
